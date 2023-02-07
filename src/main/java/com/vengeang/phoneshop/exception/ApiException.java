@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Data
-@RequiredArgsConstructor
-public class ApiException extends RuntimeException{
+@RequiredArgsConstructor// ចាំបាច់ត្រួវតែមាន Constructor
+public class ApiException extends RuntimeException{ //=> class សម្រាប់ Custom constructor ដោយខ្លួនយើង
     private final HttpStatus status;
     private final String message;
 }
