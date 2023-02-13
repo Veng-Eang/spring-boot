@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BrandServiceImpl implements BrandService {
     @Autowired
@@ -32,5 +34,15 @@ public class BrandServiceImpl implements BrandService {
         Brand brandUpdate = getById(id);
         brandUpdate.setName(brand.getName());
         return brandRepository.save(brandUpdate);
+    }
+
+    @Override
+    public List<Brand> getBrands(){
+        return brandRepository.findAll();
+    }
+
+    @Override
+    public List<Brand> getBrands(String name) {
+        return brandRepository.findByNameContaining(name);
     }
 }
