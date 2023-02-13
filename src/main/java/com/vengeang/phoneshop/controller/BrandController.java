@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,15 +37,8 @@ public class BrandController {
         return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brandUpdate));
     }
     @GetMapping()
-    public  ResponseEntity<?> getAll(){
-        List<BrandDTO> collect = brandService.getBrands().stream()
-                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(collect);
-    }
-    @GetMapping("/filter")
-    public ResponseEntity<?> getByName(@RequestParam("name") String name){
-        List<BrandDTO> collect = brandService.getBrands(name)
+    public ResponseEntity<?> getAll(@RequestParam Map<String,String> params){
+        List<BrandDTO> collect = brandService.getBrands(params)
                 .stream()
                 .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
                 .collect(Collectors.toList());

@@ -4,11 +4,14 @@ import com.vengeang.phoneshop.entities.Brand;
 import com.vengeang.phoneshop.exception.ApiException;
 import com.vengeang.phoneshop.repositories.BrandRepository;
 import com.vengeang.phoneshop.service.BrandService;
+import com.vengeang.phoneshop.spec.BrandFilter;
+import com.vengeang.phoneshop.spec.BrandSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -35,14 +38,18 @@ public class BrandServiceImpl implements BrandService {
         brandUpdate.setName(brand.getName());
         return brandRepository.save(brandUpdate);
     }
-
     @Override
-    public List<Brand> getBrands(){
-        return brandRepository.findAll();
+    public List<Brand> getBrands(Map<String,String> params){
+        BrandFilter brandFilter=new BrandFilter();
+        if (params.containsKey("name")){
+            brandFilter.setName(params.get("name"));
+        }
+        if(params.containsKey("id")){
+            brandFilter.setId(Integer.parseInt(params.get("id")));
+        }
+        BrandSpec brandSpec=new BrandSpec(brandFilter);
+        return brandRepository.findAll(brandSpec);
     }
 
-    @Override
-    public List<Brand> getBrands(String name) {
-        return brandRepository.findByNameContaining(name);
-    }
+
 }
