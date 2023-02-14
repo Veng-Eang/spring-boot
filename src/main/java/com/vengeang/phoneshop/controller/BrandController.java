@@ -11,14 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("brands")
 public class BrandController {
-    @Autowired
+
     private BrandService brandService;
 
     @RequestMapping(method = RequestMethod.POST)
@@ -42,10 +41,6 @@ public class BrandController {
     public ResponseEntity<?> getAll(@RequestParam Map<String,String> params){
         Page<Brand> brands = brandService.getBrands(params);
         PageDTO pageDTO= new PageDTO(brands);
-//        List<BrandDTO> collect = brandService.getBrands(params)
-//                .stream()
-//                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
-//                .collect(Collectors.toList());
         return ResponseEntity.ok(pageDTO);
     }
 }
