@@ -2,10 +2,12 @@ package com.vengeang.phoneshop.controller;
 
 
 import com.vengeang.phoneshop.dto.BrandDTO;
+import com.vengeang.phoneshop.dto.PageDTO;
 import com.vengeang.phoneshop.entities.Brand;
 import com.vengeang.phoneshop.mapper.BrandMapper;
 import com.vengeang.phoneshop.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +40,12 @@ public class BrandController {
     }
     @GetMapping()
     public ResponseEntity<?> getAll(@RequestParam Map<String,String> params){
-        List<BrandDTO> collect = brandService.getBrands(params)
-                .stream()
-                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(collect);
+        Page<Brand> brands = brandService.getBrands(params);
+        PageDTO pageDTO= new PageDTO(brands);
+//        List<BrandDTO> collect = brandService.getBrands(params)
+//                .stream()
+//                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
+//                .collect(Collectors.toList());
+        return ResponseEntity.ok(pageDTO);
     }
 }

@@ -4,9 +4,12 @@ import com.vengeang.phoneshop.entities.Brand;
 import com.vengeang.phoneshop.exception.ApiException;
 import com.vengeang.phoneshop.repositories.BrandRepository;
 import com.vengeang.phoneshop.service.BrandService;
+import com.vengeang.phoneshop.service.util.PageUtil;
 import com.vengeang.phoneshop.spec.BrandFilter;
 import com.vengeang.phoneshop.spec.BrandSpec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +42,7 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.save(brandUpdate);
     }
     @Override
-    public List<Brand> getBrands(Map<String,String> params){
+    public Page<Brand> getBrands(Map<String,String> params){
         BrandFilter brandFilter=new BrandFilter();
         if (params.containsKey("name")){
             brandFilter.setName(params.get("name"));
@@ -47,9 +50,17 @@ public class BrandServiceImpl implements BrandService {
         if(params.containsKey("id")){
             brandFilter.setId(Integer.parseInt(params.get("id")));
         }
+        int pageLimit= PageUtil.DEFAULT_PAGE_LIMIT;
+        if (params.containsKey(PageUtil.PAGE_LIMIT)){
+            pageLimit=Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
+        }
+        int pageNumber=PageUtil.DEFAULT_PAGE_NUMBER;
+        if (params.containsKey(PageUtil.PAGE_NUMBER)){
+            pageNumber=Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
+        }
         BrandSpec brandSpec=new BrandSpec(brandFilter);
-        return brandRepository.findAll(brandSpec);
+        Pageable pageable=PageUtil.getPageable(pageNumber,pageLimit);
+        return brandRepository.findAll(brandSpec, pageable);
     }
-
 
 }
