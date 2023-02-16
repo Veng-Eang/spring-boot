@@ -1,8 +1,8 @@
 package com.vengeang.phoneshop.entities;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
+
+import javax.persistence.*;
 
 @Data
 @Entity

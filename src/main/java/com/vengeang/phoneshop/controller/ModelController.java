@@ -2,7 +2,7 @@ package com.vengeang.phoneshop.controller;
 
 import com.vengeang.phoneshop.dto.ModelDTO;
 import com.vengeang.phoneshop.entities.Model;
-import com.vengeang.phoneshop.mapper.ModelMapper;
+import com.vengeang.phoneshop.mapper.ModelEntityMapper;
 import com.vengeang.phoneshop.service.ModelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("models")
 public class ModelController {
     private final ModelService modelService;
-    private final ModelMapper modelMapper;
+    private final ModelEntityMapper modelEntityMapper;
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ModelDTO modelDTO){
-        Model model = modelMapper.toModel(modelDTO);
+        Model model = modelEntityMapper.toModel(modelDTO);
         Model saveModel = modelService.save(model);
-        return ResponseEntity.ok(modelMapper.toModelDTO(saveModel));
+        return ResponseEntity.ok(modelEntityMapper.toModelDTO(saveModel));
     }
 }
