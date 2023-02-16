@@ -20,6 +20,6 @@ public class ModelController {
     public ResponseEntity<?> create(@RequestBody ModelDTO modelDTO){
         Model model = modelMapper.toModel(modelDTO);
         Model saveModel = modelService.save(model);
-        return ResponseEntity.ok(ModelMapper.INSTANCE.toModelDTO(saveModel));
+        return ResponseEntity.ok(modelMapper.toModelDTO(saveModel));
     }
 }
