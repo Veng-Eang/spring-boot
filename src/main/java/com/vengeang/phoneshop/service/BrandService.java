@@ -3,8 +3,6 @@ package com.vengeang.phoneshop.service;
 import com.vengeang.phoneshop.entities.Brand;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Map;
 
 @Service

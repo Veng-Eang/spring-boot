@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("brands")
 public class BrandController {
-
+    @Autowired
     private BrandService brandService;
 
     @RequestMapping(method = RequestMethod.POST)
