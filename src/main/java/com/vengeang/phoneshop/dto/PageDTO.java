@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PageDTO {
     private List<?> list;
-    public PaginationDTO paginationDTO;
+    private PaginationDTO paginationDTO;
     public PageDTO(Page page){
         this.list=page.getContent();
         this.paginationDTO= paginationDTO.builder()

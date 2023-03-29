@@ -9,6 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand,Integer> , JpaSpecificationExecutor {
+public interface BrandRepository extends JpaRepository<Brand,Long> , JpaSpecificationExecutor {
     List<Brand> findByNameContaining(String name);
+    List<Brand> findByNameLike(String name);
 }

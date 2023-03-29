@@ -8,7 +8,7 @@ import java.util.Map;
 @Service
 public interface BrandService {
     Brand create(Brand brand);
-    Brand getById(Integer id);
-    Brand update(Integer id, Brand brand);
+    Brand getById(Long id);
+    Brand update(Long id, Brand brand);
     Page<Brand> getBrands(Map<String,String> params);
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ModelRepository extends JpaRepository<Model,Integer>, JpaSpecificationExecutor {
-    List<Model> findModelByBrand_Id(Integer brandId);
+public interface ModelRepository extends JpaRepository<Model,Long>, JpaSpecificationExecutor {
+    List<Model> findModelByBrand_Id(Long brandId);
 }

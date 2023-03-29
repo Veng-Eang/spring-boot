@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand getById(Integer id) {
+    public Brand getById(Long id) {
 //          use normal exception
 //        return brandRepository.findById(id)    // => ប្រើ Error Exception ដែលគេផ្ដល់អោយស្រាប់
 //                .orElseThrow(()->new HttpClientErrorException(HttpStatus.NOT_FOUND,String.format("Brand with id=%d not found",id)));
@@ -36,7 +36,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand update(Integer id,Brand brand) {
+    public Brand update(Long id,Brand brand) {
         Brand brandUpdate = getById(id);
         brandUpdate.setName(brand.getName());
         return brandRepository.save(brandUpdate);
