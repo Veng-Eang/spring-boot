@@ -11,11 +11,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "Spring",uses = {ModelService.class, ColorService.class})
 public interface ProductMapper {
-
     @Mapping(target = "model",source = "modelId")
     @Mapping(target = "color",source = "colorId")
     Product toProduct(ProductDTO productDTO);
-
     @Mapping(target = "pricePerUnit",source = "importDTO.importPrice")
     @Mapping(target = "product",source = "product")
     @Mapping(target = "id",ignore = true)
