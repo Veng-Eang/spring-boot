@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,18 +42,10 @@ public class ProductController {
         productService.setSalePrice(productId,priceDTO);
         return ResponseEntity.ok("Set price success.");
     }
-    @PostMapping("uplaodProduct")
-    public ResponseEntity<?> uploadProduct(@RequestParam("file")MultipartFile file) throws IOException {
-        Workbook workbook= new XSSFWorkbook(file.getInputStream());
-        Sheet sheet = workbook.getSheet("products");
-        Iterator<Row> rowIterator = sheet.iterator();
-        rowIterator.next();//@TODO improve checking error
-        while (rowIterator.hasNext()){
-            Row row = rowIterator.next();
-            Cell cellModelId = row.getCell(0);
-            Long modelId =(long)cellModelId.getNumericCellValue();
-        }
-        return null;
+    @PostMapping("uploadProduct")
+    public ResponseEntity<?> uploadProduct(@RequestParam("file") @Valid MultipartFile file){
+        Map<Integer, String> errorMap = productService.uploadProduct(file);
+        return ResponseEntity.ok(errorMap);
     }
 
 }
